@@ -73,9 +73,9 @@ output "node_pool" {
     created_at        = local.k8s.node_pool.created_at
     updated_at        = local.k8s.node_pool.updated_at
     taint = {
-      key    = local.k8s.node_pool.taint[0].key
-      value  = local.k8s.node_pool.taint[0].value
-      effect = local.k8s.node_pool.taint[0].effect
+      key    = local.k8s.node_pool.taint.key
+      value  = local.k8s.node_pool.taint.value
+      effect = local.k8s.node_pool.taint.effect
     }
   }
 }
@@ -88,8 +88,8 @@ output "urn" {
 output "maintenance_policy" {
   description = "A block representing the cluster's maintenance window. Updates will be applied within this window. If not specified, a default maintenance window will be chosen."
   value = {
-    day        = local.k8s.maintenance_policy[0].day
-    duration   = local.k8s.maintenance_policy[0].duration
-    start_time = local.k8s.maintenance_policy[0].start_time
+    day        = local.k8s.maintenance_policy.day
+    duration   = local.k8s.maintenance_policy.duration
+    start_time = local.k8s.maintenance_policy.start_time
   }
 }
