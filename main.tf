@@ -58,7 +58,7 @@ resource "digitalocean_kubernetes_cluster" "cluster" {
 resource "digitalocean_kubernetes_node_pool" "node_pool" {
   for_each = {
     for k, v in var.node_pools : k => v
-    if v.default
+    if !v.default
   }
 
   # Required
