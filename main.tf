@@ -1,3 +1,7 @@
+locals {
+  default_np = var.node_pools[index(var.node_pools.*.default, true)]
+}
+
 data "digitalocean_kubernetes_versions" "cluster" {
   version_prefix = var.kubernetes_version_prefix
 }
@@ -16,33 +20,26 @@ resource "digitalocean_kubernetes_cluster" "cluster" {
   tags          = var.tags
 
   # Required block
-  dynamic "node_pool" {
-    for_each = {
-      for k, v in var.node_pools : k => v
-      if v.default
-    }
-    iterator = np
-    content {
-      # Required
-      name = np.value.name
-      size = np.value.size
+  node_pool {
+    # Required
+    name = local.default_np.name
+    size = local.default_np.size
 
-      # Optional
-      node_count = np.value.node_count
-      auto_scale = np.value.auto_scale
-      min_nodes  = np.value.min_nodes
-      max_nodes  = np.value.max_nodes
-      tags       = np.value.tags
-      labels     = np.value.labels
+    # Optional
+    node_count = local.default_np.node_count
+    auto_scale = local.default_np.auto_scale
+    min_nodes  = local.default_np.min_nodes
+    max_nodes  = local.default_np.max_nodes
+    tags       = local.default_np.tags
+    labels     = local.default_np.labels
 
-      # Optional block
-      dynamic "taint" {
-        for_each = lookup(np.value, "taint", null) != null ? np.value.taint[*] : []
-        content {
-          key    = taint.value.key
-          value  = taint.value.value
-          effect = taint.value.effect
-        }
+    # Optional block
+    dynamic "taint" {
+      for_each = lookup(local.default_np, "taint", null) != null ? local.default_np.taint[*] : []
+      content {
+        key    = taint.value.key
+        value  = taint.value.value
+        effect = taint.value.effect
       }
     }
   }
