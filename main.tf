@@ -93,9 +93,9 @@ data "digitalocean_project" "cluster" {
 }
 
 resource "digitalocean_project_resources" "project" {
-  for_each = data.digitalocean_project.cluster
+  count = var.project_id != "" || var.project_name != "" ? 1 : 0
 
-  project = each.value.id
+  project = data.digitalocean_project.cluster.id
   resources = [
     digitalocean_kubernetes_cluster.cluster.urn
   ]
