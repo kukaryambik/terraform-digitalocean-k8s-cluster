@@ -69,7 +69,7 @@ variable "vpc_uuid" {
 }
 
 variable "auto_upgrade" {
-  default     = null
+  default     = false
   description = "(Optional) A boolean value indicating whether the cluster will be automatically upgraded to new patch releases during its maintenance window."
   type        = bool
 }
