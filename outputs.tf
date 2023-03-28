@@ -73,5 +73,5 @@ output "urn" {
 
 output "maintenance_policy" {
   description = "A block representing the cluster's maintenance window. Updates will be applied within this window. If not specified, a default maintenance window will be chosen."
-  value = local.k8s.maintenance_policy
+  value       = local.k8s.maintenance_policy
 }
