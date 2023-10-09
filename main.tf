@@ -7,6 +7,8 @@ data "digitalocean_kubernetes_versions" "cluster" {
 }
 
 resource "digitalocean_kubernetes_cluster" "cluster" {
+  depends_on = [digitalocean_kubernetes_versions.cluster]
+
   # Required
   name    = var.name
   region  = var.region
