@@ -40,13 +40,13 @@ variable "node_pools" {
 
 variable "project_id" {
   default     = null
-  description = "(Optional) the ID of the DO project."
+  description = "(Optional) The ID of the DO project."
   type        = string
 }
 
 variable "project_name" {
   default     = null
-  description = "(Optional) name of the DO project."
+  description = "(Optional) The name of the DO project."
   type        = string
 }
 
