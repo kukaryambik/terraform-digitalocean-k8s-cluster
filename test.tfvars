@@ -1,6 +1,6 @@
 name               = "test"
 region             = "ams3"
-kubernetes_version = "1.24.12-do.0"
+kubernetes_version = "1.32.2-do.0"
 node_pools = [{
   default    = true
   name       = "test"
